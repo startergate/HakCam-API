@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
-    res.render('index', { title: 'Express' });
+router.get('/:video', (req, res, next) => {
+    res.send();
+});
+
+router.get('/:video/:time', (req, res, next) => {
+    res.send();
 });
 
 module.exports = router;
