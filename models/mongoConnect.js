@@ -1,12 +1,13 @@
 /*jshint esversion: 9 */
 
 const MongoClient = require('mongodb').MongoClient;
+const random = require('random-unified');
 const assert = require('assert');
 const mongoUser = require('../modules/userGetter');
 
 const url = `mongodb://${mongoUser.id}:${mongoUser.pw}@54.180.27.126:27017`;
 // Database Name
-var db;
+let db;
 const dbName = 'hakcam';
 
 MongoClient.connect(url, {
@@ -23,19 +24,36 @@ MongoClient.connect(url, {
 exports.findQuestion = (lid, time, callback) => {
     db.question.find({
         lid: lid,
-        $lte: {
-            time: time
+        time: {
+            $lte: time
         }
     }, callback);
 };
 
-exports.insertQuestion = (time, time, callback) => {
-    db.question.find({
+exports.insertQuestion = (lid, time, question, callback) => {
+    db.question.insertOne({
         lid: lid,
-        $lte: {
-            time: time
-        }
+        qid: random.crypto(10),
+        question: question,
+        answer: undefined,
+        time: time
     }, callback);
+};
+
+exports.deleteQuestion = (lid, qid, callback) => {
+    db.question.deleteOne({
+        lid: lid,
+        qid: qid
+    }, callback);
+};
+
+exports.insertAnswer = (lid, qid, answer, callback) => {
+    db.question.updateOne({
+        lid: lid,
+        qid: qid
+    }, {
+
+    })
 };
 
 exports.findUser = (pid, callback) => {

@@ -15,6 +15,7 @@
     "http-errors": "~1.6.3",
     "mongoose": "^5.6.8",
     "morgan": "~1.9.1",
-    "puppeteer": "^1.19.0"
+    "puppeteer": "^1.19.0",
+    "random-unified": "^4.0.0-canary.0"
   }
 }
