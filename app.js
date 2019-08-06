@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+const classRouter = require('./routes/class');
 const usersRouter = require('./routes/users');
 const qnaRouter = require('./routes/question');
 const streamRouter = require('./routes/stream');
@@ -29,6 +30,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/class', classRouter);
 app.use('/users', usersRouter);
 app.use('/question', qnaRouter);
 app.use('/stream', streamRouter);
