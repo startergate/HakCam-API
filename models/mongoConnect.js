@@ -58,8 +58,10 @@ exports.insertAnswer = (lid, qid, answer, callback) => {
         lid: lid,
         qid: qid
     }, {
-        answer: answer
-    });
+        $set: {
+            answer: answer
+        }
+    }, callback);
 };
 
 exports.findUser = (pid, callback) => {
