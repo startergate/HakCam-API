@@ -22,10 +22,10 @@ exports.authorize = (req, res, next) => {
                 privilege: 0
             });
         });
-        res.redirect('/');
+        res.redirect(`http://localhost:3000/user/auth?sessid=${result.sessid}&pid=${result.pid}`);
     }).catch(err => {
         console.log(err);
-        res.redirect('/');
+        res.redirect('http://localhost:3000');
     });
 };
 
