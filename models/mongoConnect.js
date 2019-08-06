@@ -39,9 +39,9 @@ exports.createClass = (pid, title, callback) => {
         projection: {
             privilege: 1
         }
-    }, (err, res) => {
-        if (!res) {
-            res.sendStatus(400);
+    }, (err, resdb) => {
+        if (!resdb) {
+            callback('failed');
             return;
         }
         db.class.insertOne({
@@ -50,7 +50,37 @@ exports.createClass = (pid, title, callback) => {
             pid: pid
         }, callback);
     })
-}
+};
+
+exports.addClass = (pid, cid, callback) => {
+    db.class.findOne({
+        cid: cid
+    }, (err, resdb) => {
+        if ((!resdb)) {
+            callback('failed');
+            return;
+        }
+        db.user.findOne({
+            pid: pid
+        }, {
+            projection: {
+                attend: 1
+            }
+        }, (err, resdb) => {
+            if (err || resdb.attend.indexOf(cid) !== -1) {
+                callback('failed');
+                return;
+            }
+            else db.user.updateOne({
+                pid: pid
+            }, {
+                $push: {
+                    attend: cid
+                }
+            }, callback)
+        });
+    });
+};
 
 exports.findQuestion = (lid, time, callback) => {
     if (time == -1) time = 99999999;

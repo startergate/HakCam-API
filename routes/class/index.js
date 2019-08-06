@@ -2,13 +2,9 @@ const express = require('express');
 const controller = require('./class.controller');
 const router = express.Router();
 
-router.get('/:class/add', (req, res, next) => {
+router.post('/:class/add', controller.add);
 
-});
-
-router.post('/create', (req, res, next) => {
-
-});
+router.post('/create', controller.create);
 
 router.get('/:class', controller.classIndex);
 

@@ -7,5 +7,15 @@ exports.classIndex = (req, res, next) => {
 };
 
 exports.create = (req, res, next) => {
-    //db.
+    db.createClass(req.body.pid, req.body.title, err => {
+        if (err) res.sendStatus(400);
+        else res.sendStatus(200);
+    });
+}
+
+exports.add = (req, res, next) => {
+    db.addClass(req.body.pid, req.params.class, err => {
+        if (err) res.sendStatus(400);
+        else res.sendStatus(200);
+    })
 }
