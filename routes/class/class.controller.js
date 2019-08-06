@@ -22,8 +22,14 @@ exports.add = (req, res, next) => {
 
 exports.addLecture = (req, res, next) => {
     db.createLecture(req.body.pid, req.params.class, req.body.title, req.body.desc, req.body.youtube, req.body.keyword, err => {
-        console.log(err);
         if (err) res.sendStatus(400);
         else res.sendStatus(200);
     });
+};
+
+exports.classInfo = (req, res, next) => {
+    db.findClassInfo(req.params.class, (err, resdb) => {
+        if (err) res.sendStatus(500);
+        else res.send(resdb);
+    })
 }

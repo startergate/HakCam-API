@@ -43,4 +43,12 @@ exports.verify = (req, res, next) => {
             privilege: 1
         });
     }
+    res.end();
+};
+
+exports.getClass = (req, res, next) => {
+    db.findUsersClass(req.params.pid, (err, resdb) => {
+        if (err) res.sendStatus(500);
+        else res.send(resdb.attend);
+    })
 };

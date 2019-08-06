@@ -32,6 +32,27 @@ exports.findClass = (cid, callback) => {
     }).toArray(callback);
 };
 
+exports.findClassInfo = (cid, callback) => {
+    db.class.findOne({
+        cid: cid
+    }, {
+        projection: {
+            _id: 0
+        }
+    }, callback);
+}
+
+exports.findUsersClass = (pid, callback) => {
+    db.user.findOne({
+        pid: pid
+    }, {
+        projection: {
+            _id: 0,
+            attend: 1
+        }
+    }, callback)
+}
+
 exports.createClass = (pid, title, callback) => {
     db.user.findOne({
         pid: pid,

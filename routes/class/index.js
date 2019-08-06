@@ -10,4 +10,6 @@ router.post('/:class/lecture', controller.addLecture);
 
 router.get('/:class', controller.classIndex);
 
+router.get('/:class/info', controller.classInfo);
+
 module.exports = router;
