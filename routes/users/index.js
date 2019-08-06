@@ -7,13 +7,7 @@ router.get('/', (req, res, next) => {
     res.send('respond with a resource');
 });
 
-router.post('/add/:user/:class', (req, res, next) => {
-
-});
-
-router.post('/verify', (req, res, next) => {
-
-});
+router.post('/verify', controller.verify);
 
 router.get('/auth', controller.authorize);
 

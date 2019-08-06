@@ -17,10 +17,40 @@ MongoClient.connect(url, {
     db.class = db.collection('class');
     db.user = db.collection('user');
     db.question = db.collection('question');
+    db.lecture = db.collection('lecture');
 }).catch(err => {
     throw err;
 });
 
+exports.findClass = (cid, callback) => {
+    db.lecture.find({
+        cid: cid
+    }, {
+        projection: {
+            _id: 0
+        }
+    }).toArray(callback);
+};
+
+exports.createClass = (pid, title, callback) => {
+    db.user.findOne({
+        pid: pid
+    }, {
+        projection: {
+            privilege: 1
+        }
+    }, (err, res) => {
+        if (!res) {
+            res.sendStatus(400);
+            return;
+        }
+        db.class.insertOne({
+            cid: random.crypto(10),
+            title: title,
+            pid: pid
+        }, callback);
+    })
+}
 
 exports.findQuestion = (lid, time, callback) => {
     if (time == -1) time = 99999999;
@@ -79,27 +109,5 @@ exports.updateUser = (pid, docs, callback) => {
         pid: pid
     }, {
         $set: docs
-    }, callback);
-};
-
-exports.addLike = (sessid, docs, callback) => {
-    let doc = {};
-    doc['liked.' + Object.keys(docs)[0]] = docs[Object.keys(docs)[0]];
-    console.log(doc);
-    db.user.updateOne({
-        lastSession: sessid
-    }, {
-        $push: doc
-    }, callback);
-};
-
-exports.removeLike = (sessid, docs, callback) => {
-    let doc = {};
-    doc['liked.' + Object.keys(docs)[0]] = docs[Object.keys(docs)[0]];
-    console.log(doc);
-    db.user.updateOne({
-        lastSession: sessid
-    }, {
-        $unset: doc
     }, callback);
 };
