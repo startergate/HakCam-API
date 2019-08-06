@@ -21,13 +21,19 @@ MongoClient.connect(url, {
     throw err;
 });
 
+
 exports.findQuestion = (lid, time, callback) => {
+    if (time == -1) time = 99999999;
     db.question.find({
         lid: lid,
         time: {
             $lte: time
         }
-    }, callback);
+    }, {
+        projection: {
+            _id: 0
+        }
+    }).toArray(callback);
 };
 
 exports.insertQuestion = (lid, time, question, callback) => {
@@ -52,8 +58,8 @@ exports.insertAnswer = (lid, qid, answer, callback) => {
         lid: lid,
         qid: qid
     }, {
-
-    })
+        answer: answer
+    });
 };
 
 exports.findUser = (pid, callback) => {

@@ -116,3 +116,5 @@ secrets.sh
 local-dev/bundle.js
 
 package-lock.json
+
+modules/userGetter.js
