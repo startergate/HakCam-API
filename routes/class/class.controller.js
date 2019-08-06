@@ -21,7 +21,8 @@ exports.add = (req, res, next) => {
 };
 
 exports.addLecture = (req, res, next) => {
-    db.addLecture(req.body.pid, req.params.cid, err => {
+    db.createLecture(req.body.pid, req.params.class, req.body.title, req.body.desc, req.body.youtube, err => {
+        console.log(err);
         if (err) res.sendStatus(400);
         else res.sendStatus(200);
     })

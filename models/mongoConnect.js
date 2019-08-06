@@ -83,7 +83,8 @@ exports.addClass = (pid, cid, callback) => {
     });
 };
 
-exports.createLecture = (pid, cid, callback) => {
+exports.createLecture = (pid, cid, title, desc, youtube, callback) => {
+    console.log(cid);
     db.user.findOne({
         pid: pid,
         privilege: 1
@@ -92,15 +93,25 @@ exports.createLecture = (pid, cid, callback) => {
             privilege: 1
         }
     }, (err, resdb) => {
-        if (!resdb) {
-            callback('failed');
+        if (!resdb || err) {
+            callback('failed1');
             return;
         }
-        db.class.insertOne({
-            cid: random.crypto(10),
-            title: title,
-            pid: pid
-        }, callback);
+        db.class.findOne({
+            cid: cid
+        }, (err, resdb) => {
+            if (!resdb || err) {
+                callback('failed');
+                return;
+            }
+            db.lecture.insertOne({
+                cid: cid,
+                lid: random.crypto(10),
+                title: title,
+                description: desc,
+                youtube: youtube
+            }, callback);
+        });
     })
 };
 
