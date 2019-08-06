@@ -81,25 +81,3 @@ exports.updateUser = (pid, docs, callback) => {
         $set: docs
     }, callback);
 };
-
-exports.addLike = (sessid, docs, callback) => {
-    let doc = {};
-    doc['liked.' + Object.keys(docs)[0]] = docs[Object.keys(docs)[0]];
-    console.log(doc);
-    db.user.updateOne({
-        lastSession: sessid
-    }, {
-        $push: doc
-    }, callback);
-};
-
-exports.removeLike = (sessid, docs, callback) => {
-    let doc = {};
-    doc['liked.' + Object.keys(docs)[0]] = docs[Object.keys(docs)[0]];
-    console.log(doc);
-    db.user.updateOne({
-        lastSession: sessid
-    }, {
-        $unset: doc
-    }, callback);
-};
