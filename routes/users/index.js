@@ -7,15 +7,7 @@ router.get('/', (req, res, next) => {
     res.send('respond with a resource');
 });
 
-
-
-
-
-router.post('/verify', (req, res, next) => {
-    if (req.body.code == '123456789') {
-
-    }
-});
+router.post('/verify', controller.verify);
 
 router.get('/auth', controller.authorize);
 
