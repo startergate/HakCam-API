@@ -83,8 +83,8 @@ exports.addClass = (pid, cid, callback) => {
     });
 };
 
-exports.createLecture = (pid, cid, title, desc, youtube, callback) => {
-    console.log(cid);
+exports.createLecture = (pid, cid, title, desc, youtube, keyword, callback) => {
+    keyword = keyword.split(', ');
     db.user.findOne({
         pid: pid,
         privilege: 1
@@ -109,7 +109,8 @@ exports.createLecture = (pid, cid, title, desc, youtube, callback) => {
                 lid: random.crypto(10),
                 title: title,
                 description: desc,
-                youtube: youtube
+                youtube: youtube,
+                keyword: keyword
             }, callback);
         });
     })

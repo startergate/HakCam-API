@@ -7,6 +7,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const classRouter = require('./routes/class');
+const booksRouter = require('./routes/books');
 const usersRouter = require('./routes/users');
 const qnaRouter = require('./routes/question');
 const streamRouter = require('./routes/stream');
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/class', classRouter);
+app.use('/books', booksRouter);
 app.use('/users', usersRouter);
 app.use('/question', qnaRouter);
 app.use('/stream', streamRouter);

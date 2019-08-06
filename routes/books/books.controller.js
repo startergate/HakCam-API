@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 
-(async () => {
+exports.getBooked = async (req, res, next) => {
+    let books = [];
     const browser = await puppeteer.launch({
         headless: true, 
         timeout:0,
@@ -9,7 +10,7 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
  
     await page.goto('http://book.gen.go.kr/r/reading/search/schoolCodeSetting.jsp?schoolCode=2353', {timeout:0});
-    await page.type('#searchCon2', 'C#');       // "C#"쪽을 다른 변수이름으로 바꿀날이 오긴 할까
+    await page.type('#searchCon2', req.params.keyword);       // "C#"쪽을 다른 변수이름으로 바꿀날이 오긴 할까
     await page.click('[class=searchBtn]');
     await page.waitFor('.result');
  
@@ -20,7 +21,9 @@ const puppeteer = require('puppeteer');
         let strArray = htmlw.split("'");
         htmlw = 'http://book.gen.go.kr/r/reading/search/schoolBookDetail.jsp?controlNo='+strArray[1];*/
         console.log(title/*, htmlw*/);
+        books.push(title);
     }
  
     await browser.close();
-})();
+    await res.send(books);
+};
