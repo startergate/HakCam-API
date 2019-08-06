@@ -12,14 +12,14 @@ exports.findAll = (req, res, next) => {
 };
 
 exports.findSome = (req, res, next) => {
-    db.findQuestion(req.params.video, req.params.time, (err, resdb) => {
+    db.findQuestion(req.params.video, req.params.time*1, (err, resdb) => {
         if (err) res.sendStatus(500);
         else res.send(resdb);
     })
 };
 
 exports.insertQuestion = (req, res, next) => {
-    db.insertQuestion(req.params.video, req.params.time, req.body.question, (err) => {
+    db.insertQuestion(req.params.video, req.params.time*1, req.body.question, (err) => {
         if (err) res.sendStatus(500);
         else res.sendStatus(200);
     });
