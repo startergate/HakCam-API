@@ -17,5 +17,12 @@ exports.add = (req, res, next) => {
     db.addClass(req.body.pid, req.params.class, err => {
         if (err) res.sendStatus(400);
         else res.sendStatus(200);
+    });
+};
+
+exports.addLecture = (req, res, next) => {
+    db.addLecture(req.body.pid, req.params.cid, err => {
+        if (err) res.sendStatus(400);
+        else res.sendStatus(200);
     })
 }

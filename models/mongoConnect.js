@@ -34,7 +34,8 @@ exports.findClass = (cid, callback) => {
 
 exports.createClass = (pid, title, callback) => {
     db.user.findOne({
-        pid: pid
+        pid: pid,
+        privilege: 1
     }, {
         projection: {
             privilege: 1
@@ -80,6 +81,27 @@ exports.addClass = (pid, cid, callback) => {
             }, callback)
         });
     });
+};
+
+exports.createLecture = (pid, cid, callback) => {
+    db.user.findOne({
+        pid: pid,
+        privilege: 1
+    }, {
+        projection: {
+            privilege: 1
+        }
+    }, (err, resdb) => {
+        if (!resdb) {
+            callback('failed');
+            return;
+        }
+        db.class.insertOne({
+            cid: random.crypto(10),
+            title: title,
+            pid: pid
+        }, callback);
+    })
 };
 
 exports.findQuestion = (lid, time, callback) => {
