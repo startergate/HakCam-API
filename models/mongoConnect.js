@@ -137,6 +137,12 @@ exports.createLecture = (pid, cid, title, desc, youtube, keyword, callback) => {
     })
 };
 
+exports.findLecture = (lid, callback) => {
+    db.lecture.findOne({
+        lid:lid
+    }, callback);
+};
+
 exports.findQuestion = (lid, time, callback) => {
     if (time == -1) time = 99999999;
     db.question.find({

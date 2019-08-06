@@ -27,9 +27,16 @@ exports.addLecture = (req, res, next) => {
     });
 };
 
+exports.findLecture = (req, res, next) => {
+    db.findLecture(req.params.lid, (err, resdb) => {
+        if (err) res.sendStatus(500);
+        else res.send(resdb);
+    })
+};
+
 exports.classInfo = (req, res, next) => {
     db.findClassInfo(req.params.class, (err, resdb) => {
         if (err) res.sendStatus(500);
         else res.send(resdb);
     })
-}
+};
