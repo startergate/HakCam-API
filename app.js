@@ -6,6 +6,9 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const qnaRouter = require('./routes/question');
+const streamRouter = require('./routes/stream');
+const watchRouter = require('./routes/watch');
 
 const app = express();
 
@@ -21,6 +24,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/question', qnaRouter);
+app.use('/stream', streamRouter);
+app.use('/watch', watchRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
